@@ -6,6 +6,9 @@ premium black car / executive transportation in Washington, DC. Built as a
 long-term, while the business identity that fulfills leads (name, phone,
 email, bio) can be swapped to a different operator/tenant at any time.
 
+**Live site:** https://kalekidana.github.io/dc-metro-black-car/
+(deployed as a static export via GitHub Pages — see [Hosting](#hosting-github-pages) below)
+
 ## Quick Start
 
 ```bash
@@ -79,20 +82,26 @@ it to `tenant.social.googleBusinessProfileUrl`.
 
 ### Contact Form → Email Delivery
 
-The reservation form (`/contact`) posts to `app/api/contact/route.ts`, which
-sends the lead via [Resend](https://resend.com):
+GitHub Pages serves static files only — there's no server to run an API
+route, so the reservation form (`/contact`, `components/ContactForm.tsx`)
+posts directly to a form service instead:
 
-1. Create a Resend account and API key.
-2. Set the environment variable `RESEND_API_KEY` (in Vercel: Project
-   Settings → Environment Variables).
-3. Optionally set `RESEND_FROM_EMAIL` once you've verified a sending domain
-   in Resend (defaults to Resend's shared `onboarding@resend.dev` sender,
-   fine for testing).
-4. Leads are emailed to `tenant.booking.leadEmailTo` in `config/tenant.ts`.
+1. Create a free [Formspree](https://formspree.io) account and a form
+   pointed at the address in `tenant.booking.leadEmailTo`.
+2. Set `tenant.booking.leadFormEndpoint` in `config/tenant.ts` to the
+   endpoint Formspree gives you (`https://formspree.io/f/xxxxxxxx`).
+3. Commit and redeploy — submissions now POST straight to Formspree.
 
-**Without `RESEND_API_KEY` set**, submissions are not lost — the API route
-logs the full lead to the server console instead, so you can verify the form
-works end-to-end in development before wiring up real email delivery.
+**Until that's set (`leadFormEndpoint: null`)**, submitting the form opens a
+prefilled `mailto:` link to `tenant.email` instead — zero configuration
+required, so leads are never silently lost, just less seamless than a real
+form POST.
+
+> If you move this site off GitHub Pages to a platform with server support
+> (e.g. Vercel), you can restore a proper serverless API route instead —
+> see the git history for `app/api/contact/route.ts`, which used
+> [Resend](https://resend.com) before this project switched to static
+> hosting.
 
 ### Online Booking Tool
 
@@ -107,21 +116,42 @@ yet wired into any component.
 `tenant.legal.disclaimer` are placeholders — add your real DFHV license
 number and remove the disclaimer language before public launch.
 
-## Deploying to Vercel
+## Hosting (GitHub Pages)
 
-```bash
-npm install -g vercel   # if you don't already have the CLI
-vercel                  # first deploy, follow the prompts
-vercel --prod            # subsequent production deploys
-```
+This site builds to a static export (`output: "export"` in
+`next.config.ts`) and deploys automatically to GitHub Pages on every push to
+`main` via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 
-Or connect the GitHub repo directly in the [Vercel dashboard](https://vercel.com/new) for
-automatic deploys on push. Set `RESEND_API_KEY` (and `RESEND_FROM_EMAIL` if
-applicable) as environment variables in the Vercel project settings.
+- **Live URL:** https://kalekidana.github.io/dc-metro-black-car/
+- **How it works:** the workflow runs `npm run build` with `GITHUB_PAGES=true`
+  set (which tells `next.config.ts` to prefix all routes/assets with the
+  `/dc-metro-black-car` base path GitHub Pages requires for a project site),
+  then publishes the resulting `out/` directory via
+  `actions/deploy-pages`.
+- **Repo setting:** Settings → Pages → Build and deployment → Source is set
+  to "GitHub Actions" (not a branch) — already configured for this repo.
+- **`.nojekyll`:** `public/.nojekyll` is required so GitHub Pages doesn't run
+  Jekyll processing, which would otherwise ignore the `_next` asset
+  directory (any path starting with `_`) and break the site.
 
-After deploying, update `tenant.site.domain` in `config/tenant.ts` to match
-your production domain — it's used to build canonical URLs, Open Graph tags,
-the sitemap, and JSON-LD.
+To watch a deploy or redeploy manually: **Actions** tab → "Deploy to GitHub
+Pages" → Run workflow.
+
+### Moving to a custom domain or a different host later
+
+- **Custom domain on GitHub Pages:** add a `CNAME` file to `public/`, update
+  DNS per [GitHub's docs](https://docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-site),
+  then remove the `basePath`/`assetPrefix` logic in `next.config.ts` (a
+  custom domain serves from `/`, not `/dc-metro-black-car`) and update
+  `tenant.site.domain`.
+- **Switching to Vercel or another Node host:** static export drops API
+  routes and server rendering. If you move off GitHub Pages, you can revert
+  `output: "export"` in `next.config.ts` and restore a real API route for
+  the contact form (see the Contact Form section above).
+
+Whichever host you use, keep `tenant.site.domain` in `config/tenant.ts` in
+sync with it — it's used to build canonical URLs, Open Graph tags, the
+sitemap, and JSON-LD.
 
 ## Project Structure
 
@@ -134,9 +164,9 @@ components/              Shared UI: Header, Footer, sticky call button,
                          FAQAccordion, ContactForm, ImagePlaceholder, etc.
 app/                     One route per page (App Router), each with its own
                          metadata + JSON-LD
-app/api/contact/route.ts Contact form submission handler
 app/sitemap.ts            Auto-generated sitemap.xml
 app/robots.ts              Auto-generated robots.txt
+.github/workflows/deploy.yml  Builds + deploys to GitHub Pages on push to main
 ```
 
 ## SEO Notes

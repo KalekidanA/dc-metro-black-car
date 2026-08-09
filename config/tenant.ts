@@ -98,6 +98,16 @@ export type Tenant = {
     /** Set to a URL once an online booking tool is live; null = show phone + form only. */
     onlineBookingUrl: string | null;
     leadEmailTo: string;
+    /**
+     * GitHub Pages hosts this site as static files with no server, so the
+     * contact form can't POST to an API route. Set this to a Formspree
+     * endpoint (https://formspree.io/f/xxxxxxxx) once you've created a
+     * free Formspree form pointed at leadEmailTo, and submissions will
+     * post there directly. Until then (null), the form falls back to
+     * opening a prefilled mailto: link — no signup required, but less
+     * seamless than a real form POST.
+     */
+    leadFormEndpoint: string | null;
   };
 
   fleet: {
@@ -202,6 +212,7 @@ export const tenant: Tenant = {
     contactFormLabel: "Request a Reservation",
     onlineBookingUrl: null,
     leadEmailTo: "bookings@capitolblackcar.com",
+    leadFormEndpoint: null,
   },
 
   fleet: {
@@ -255,7 +266,8 @@ export const tenant: Tenant = {
   },
 
   site: {
-    domain: "https://www.capitolblackcar.com",
+    // GitHub Pages project site — update if a custom domain is attached later.
+    domain: "https://kalekidana.github.io/dc-metro-black-car",
     priceRange: "$$$",
     gaMeasurementId: null,
   },

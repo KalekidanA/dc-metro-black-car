@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { tenant } from "@/config/tenant";
 import { buildMetadata } from "@/lib/seo";
 import { JsonLd, serviceSchema, faqSchema } from "@/lib/schema";
@@ -134,9 +135,9 @@ export default function Page() {
               <li>&bull; Black, late-model executive sedan or SUV</li>
               <li>&bull; Confidential handling of pickup details and passenger information</li>
               <li>&bull; Flexible multi-stop itineraries for a full day of meetings (see our{" "}
-                <a href="/hourly-as-directed" className="text-gold hover:underline">
+                <Link href="/hourly-as-directed" className="text-gold hover:underline">
                   hourly / as-directed service
-                </a>)
+                </Link>)
               </li>
             </ul>
           </div>

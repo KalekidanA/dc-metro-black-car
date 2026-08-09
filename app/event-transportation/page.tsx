@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { tenant } from "@/config/tenant";
 import { buildMetadata } from "@/lib/seo";
 import { JsonLd, serviceSchema, faqSchema } from "@/lib/schema";
@@ -116,9 +117,9 @@ export default function Page() {
               Share your event date, venue(s), and a rough timeline — we&apos;ll map out
               pickup times and confirm the schedule with you before the day arrives. For
               multi-stop or multi-vehicle needs, this often pairs with our{" "}
-              <a href="/hourly-as-directed" className="text-gold hover:underline">
+              <Link href="/hourly-as-directed" className="text-gold hover:underline">
                 hourly / as-directed service
-              </a>{" "}
+              </Link>{" "}
               so the vehicle stays with your event start to finish.
             </p>
           </div>

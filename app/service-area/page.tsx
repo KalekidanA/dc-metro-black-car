@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { tenant } from "@/config/tenant";
 import { buildMetadata } from "@/lib/seo";
 import { JsonLd, breadcrumbSchema } from "@/lib/schema";
@@ -182,9 +183,9 @@ export default function Page() {
           <p className="mt-4 text-black/70">
             All three DC-area airports are covered as part of our standard service
             area — see our{" "}
-            <a href="/airport-transfers" className="text-gold hover:underline">
+            <Link href="/airport-transfers" className="text-gold hover:underline">
               airport transfers page
-            </a>{" "}
+            </Link>{" "}
             for airport-specific drive times and pickup details.
           </p>
           <ul className="mt-4 space-y-1 text-sm text-black/70">

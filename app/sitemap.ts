@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { tenant } from "@/config/tenant";
 
+export const dynamic = "force-static";
+
 const STATIC_PATHS = [
   { path: "/", priority: 1.0, changeFrequency: "weekly" as const },
   { path: "/airport-transfers", priority: 0.9, changeFrequency: "weekly" as const },
