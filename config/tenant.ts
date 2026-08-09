@@ -86,8 +86,8 @@ export type Tenant = {
   operator: {
     bio: string;
     yearsExperience: number;
-    licenseType: string;
-    licenseNumberPlaceholder: string;
+    /** One entry per licensing jurisdiction the operator is authorized in. */
+    licenses: { jurisdiction: string; licenseType: string; numberPlaceholder: string }[];
     insuranceStatement: string;
     credentials: string[];
   };
@@ -111,7 +111,13 @@ export type Tenant = {
   };
 
   fleet: {
-    vehicleTypes: { name: string; description: string; imagePlaceholder: string }[];
+    vehicleTypes: {
+      name: string;
+      capacity: number;
+      hourlyRate: number;
+      description: string;
+      imagePlaceholder: string;
+    }[];
   };
 
   reviews: Review[];
@@ -130,7 +136,7 @@ export type Tenant = {
 
   site: {
     domain: string;
-    /** Used for JSON-LD priceRange and general expectation-setting; keep vague until pricing is finalized. */
+    /** Used for JSON-LD priceRange; kept in sync with fleet.vehicleTypes hourly rates. */
     priceRange: string;
     /** GA4 Measurement ID placeholder — drop in your own, e.g. "G-XXXXXXXXXX". Leave null to disable. */
     gaMeasurementId: string | null;
@@ -158,11 +164,10 @@ export const tenant: Tenant = {
 
   serviceArea: {
     summary:
-      "Prearranged black car service throughout Washington, DC, and same-day airport transfers to Reagan National (DCA), Dulles (IAD), and BWI Marshall.",
+      "Prearranged black car service throughout Washington, DC and Northern Virginia, with same-day airport transfers to Reagan National (DCA) and Dulles (IAD). Licensed for DC and Virginia only — Maryland service is not currently offered.",
     airports: [
       { code: "DCA", name: "Ronald Reagan Washington National Airport", slug: "reagan-dca" },
       { code: "IAD", name: "Washington Dulles International Airport", slug: "dulles-iad" },
-      { code: "BWI", name: "Baltimore/Washington International Thurgood Marshall Airport", slug: "bwi" },
     ],
     primaryRegion: "Washington, DC",
     neighborhoods: [
@@ -179,27 +184,29 @@ export const tenant: Tenant = {
       "NoMa",
       "U Street Corridor",
     ],
-    extendedRegion: [
-      "Arlington, VA",
-      "Alexandria, VA",
-      "Tysons, VA",
-      "McLean, VA",
-      "Bethesda, MD",
-      "Silver Spring, MD",
-      "National Harbor, MD",
-    ],
+    extendedRegion: ["Arlington, VA", "Alexandria, VA", "Tysons, VA", "McLean, VA"],
   },
 
   operator: {
     bio:
-      "I've driven professionally in the Washington, DC market for over six years, including as a top-rated Uber Black driver, and I built Capitol Black Car Service to give clients the reliability of a prearranged, professional car service without the unpredictability of app-dispatched rides. I know DC traffic patterns, embassy and government building access procedures, and the fastest routes to all three area airports at any hour.",
+      "I've driven professionally in the Washington, DC and Northern Virginia market for over six years, including as a top-rated Uber Black driver, and I built Capitol Black Car Service to give clients the reliability of a prearranged, professional car service without the unpredictability of app-dispatched rides. I know DC and Northern Virginia traffic patterns, embassy and government building access procedures, and the fastest routes to Reagan National and Dulles at any hour.",
     yearsExperience: 6,
-    licenseType: "DC DFHV-licensed Black Car / Luxury Sedan Operator",
-    licenseNumberPlaceholder: "[DFHV LICENSE # — add before launch]",
+    licenses: [
+      {
+        jurisdiction: "Washington, DC",
+        licenseType: "DFHV-licensed Black Car / Luxury Sedan Operator",
+        numberPlaceholder: "[DC DFHV LICENSE # — add before launch]",
+      },
+      {
+        jurisdiction: "Virginia",
+        licenseType: "Virginia-licensed for-hire vehicle operator",
+        numberPlaceholder: "[VA LICENSE # — add before launch]",
+      },
+    ],
     insuranceStatement:
-      "Fully licensed and commercially insured in accordance with DC Department of For-Hire Vehicles (DFHV) requirements for prearranged luxury sedan service.",
+      "Fully licensed and commercially insured in accordance with DC Department of For-Hire Vehicles (DFHV) and Virginia for-hire vehicle requirements for prearranged luxury sedan service.",
     credentials: [
-      "DC DFHV-licensed operator",
+      "Licensed in DC & Virginia",
       "Commercially insured vehicle",
       "Background-checked driver",
       "Defensive driving trained",
@@ -218,13 +225,19 @@ export const tenant: Tenant = {
   fleet: {
     vehicleTypes: [
       {
-        name: "Executive Sedan",
-        description: "Black, late-model full-size sedan seating up to 3 passengers — the standard for airport runs and single-passenger business travel.",
+        name: "Black Car",
+        capacity: 4,
+        hourlyRate: 80,
+        description:
+          "Black, late-model executive sedan seating up to 4 passengers — the standard for airport runs and business travel.",
         imagePlaceholder: "/images/fleet/executive-sedan-placeholder.jpg",
       },
       {
-        name: "Luxury SUV",
-        description: "Black SUV seating up to 5 passengers with extra luggage capacity — well suited to group airport transfers and hourly charters.",
+        name: "Black SUV",
+        capacity: 6,
+        hourlyRate: 110,
+        description:
+          "Black SUV seating up to 6 passengers with extra luggage capacity — built for group airport transfers, hourly charters, and events.",
         imagePlaceholder: "/images/fleet/luxury-suv-placeholder.jpg",
       },
     ],
@@ -260,15 +273,15 @@ export const tenant: Tenant = {
 
   legal: {
     dfhvStatement:
-      "Capitol Black Car Service operates as a prearranged, licensed black car / limousine-style service regulated by the DC Department of For-Hire Vehicles (DFHV). This is not a taxi or street-hail service and does not use app-based on-demand dispatch — all rides are scheduled in advance by phone or online request.",
+      "Capitol Black Car Service operates as a prearranged, licensed black car / limousine-style service — regulated by the DC Department of For-Hire Vehicles (DFHV) for DC-based trips, and separately licensed to operate in Virginia. This is not a taxi or street-hail service and does not use app-based on-demand dispatch — all rides are scheduled in advance by phone or online request. Service is currently limited to DC and Virginia; Maryland is not served.",
     disclaimer:
-      "License numbers, insurance certificate details, and DFHV registration information will be added prior to public launch. Pricing shown or discussed is an estimate; final fares are confirmed at time of booking.",
+      "License numbers and insurance certificate details will be added prior to public launch. Hourly rates are billed from pickup to drop-off with a minimum booking period confirmed at the time of reservation.",
   },
 
   site: {
     // GitHub Pages project site — update if a custom domain is attached later.
     domain: "https://kalekidana.github.io/dc-metro-black-car",
-    priceRange: "$$$",
+    priceRange: "$80-$110/hr",
     gaMeasurementId: null,
   },
 };

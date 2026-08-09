@@ -81,9 +81,9 @@ export default function Page() {
           <p className="mt-4 text-black/70">
             {tenant.businessName} works with individual business travelers as well as
             firms, agencies, and embassies that need standing transportation
-            arrangements. Every driver is {tenant.operator.licenseType.toLowerCase()},
-            insured, and background-checked, and every vehicle is a black, late-model
-            sedan or SUV suitable for client-facing travel.
+            arrangements. Every driver is licensed in DC and Virginia, insured, and
+            background-checked, and every vehicle is a black, late-model sedan or SUV
+            suitable for client-facing travel.
           </p>
         </div>
       </section>

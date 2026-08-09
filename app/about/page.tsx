@@ -10,8 +10,8 @@ import { CallToAction } from "@/components/CallToAction";
 const PATH = "/about";
 
 export const metadata: Metadata = buildMetadata({
-  title: "About Us — Licensed DC Black Car Operator",
-  description: `Meet the operator behind ${tenant.businessName}: ${tenant.operator.yearsExperience}+ years of professional driving experience in Washington, DC, DFHV-licensed and insured.`,
+  title: "About Us — Licensed DC & Virginia Black Car Operator",
+  description: `Meet the operator behind ${tenant.businessName}: ${tenant.operator.yearsExperience}+ years of professional driving experience in Washington, DC and Northern Virginia, licensed and insured.`,
   path: PATH,
 });
 
@@ -28,8 +28,8 @@ export default function Page() {
 
       <PageHero
         eyebrow="About Us"
-        title="A Licensed DC Operator, Not an App"
-        description="Every ride with us is driven by a background-checked, DFHV-licensed professional who has spent years learning this city's streets, traffic patterns, and airport procedures."
+        title="A Licensed DC & Virginia Operator, Not an App"
+        description="Every ride with us is driven by a background-checked professional, licensed in both DC and Virginia, who has spent years learning this region's streets, traffic patterns, and airport procedures."
       />
 
       <section className="bg-white">
@@ -55,14 +55,15 @@ export default function Page() {
           <h2 className="font-display text-3xl font-semibold sm:text-4xl">
             Licensing &amp; Compliance
           </h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2">
-            <div className="rounded-sm border border-white/10 bg-black/30 p-6">
-              <h3 className="font-semibold text-gold">DFHV Licensing</h3>
-              <p className="mt-2 text-sm text-ivory/75">{tenant.legal.dfhvStatement}</p>
-              <p className="mt-3 text-xs text-ivory/50">
-                DFHV License Number: {tenant.operator.licenseNumberPlaceholder}
-              </p>
-            </div>
+          <p className="max-w-2xl text-ivory/70">{tenant.legal.dfhvStatement}</p>
+          <div className="mt-8 grid gap-6 sm:grid-cols-3">
+            {tenant.operator.licenses.map((license) => (
+              <div key={license.jurisdiction} className="rounded-sm border border-white/10 bg-black/30 p-6">
+                <h3 className="font-semibold text-gold">{license.jurisdiction}</h3>
+                <p className="mt-2 text-sm text-ivory/75">{license.licenseType}</p>
+                <p className="mt-3 text-xs text-ivory/50">License Number: {license.numberPlaceholder}</p>
+              </div>
+            ))}
             <div className="rounded-sm border border-white/10 bg-black/30 p-6">
               <h3 className="font-semibold text-gold">Insurance</h3>
               <p className="mt-2 text-sm text-ivory/75">{tenant.operator.insuranceStatement}</p>
@@ -96,11 +97,11 @@ export default function Page() {
           </h2>
           <p className="mt-4 text-black/70">
             It&apos;s worth being precise about what this service is: a prearranged
-            black car / limousine-style service regulated by the DC Department of
-            For-Hire Vehicles. That means rides are scheduled in advance — by phone or
-            through our contact form — rather than hailed on the street or dispatched
-            through an on-demand rideshare app. That distinction is the basis for the
-            reliability we build the whole business around.
+            black car / limousine-style service, licensed in DC and Virginia. That means
+            rides are scheduled in advance — by phone or through our contact form —
+            rather than hailed on the street or dispatched through an on-demand
+            rideshare app. That distinction is the basis for the reliability we build
+            the whole business around.
           </p>
         </div>
       </section>

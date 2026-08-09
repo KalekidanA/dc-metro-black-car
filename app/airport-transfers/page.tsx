@@ -13,9 +13,9 @@ import { CallToAction } from "@/components/CallToAction";
 const PATH = "/airport-transfers";
 
 export const metadata: Metadata = buildMetadata({
-  title: "DC Airport Transfers — DCA, Dulles (IAD) & BWI Black Car Service",
+  title: "DC Airport Transfers — DCA & Dulles (IAD) Black Car Service",
   description:
-    "Licensed black car airport transfers in Washington, DC. Flight-tracked pickups at Reagan National (DCA), Dulles (IAD), and BWI with meet-and-greet service and flat, quoted rates.",
+    "Licensed black car airport transfers in Washington, DC and Northern Virginia. Flight-tracked pickups at Reagan National (DCA) and Dulles (IAD) with meet-and-greet service and flat, quoted rates.",
   path: PATH,
 });
 
@@ -49,7 +49,7 @@ export default function AirportTransfersPage() {
         data={serviceSchema({
           name: "Airport Transfer Black Car Service",
           description:
-            "Prearranged black car transfers to and from DCA, IAD, and BWI airports serving Washington, DC.",
+            "Prearranged black car transfers to and from DCA and IAD airports serving Washington, DC and Northern Virginia.",
           url: `${tenant.site.domain}${PATH}`,
         })}
       />
@@ -58,8 +58,8 @@ export default function AirportTransfersPage() {
 
       <PageHero
         eyebrow="Highest-Demand Service"
-        title="DC Airport Black Car Transfers — DCA, Dulles & BWI"
-        description="Flight-tracked, meet-and-greet transportation to and from all three Washington-area airports. Book once, and your driver handles the rest — no app, no surge pricing, no guessing where to meet."
+        title="DC Airport Black Car Transfers — DCA &amp; Dulles"
+        description="Flight-tracked, meet-and-greet transportation to and from Reagan National and Dulles. Book once, and your driver handles the rest — no app, no surge pricing, no guessing where to meet."
       />
 
       <section className="bg-ivory">
@@ -75,27 +75,21 @@ export default function AirportTransfersPage() {
           </h2>
           <p className="mt-4 max-w-2xl text-black/70">
             Each airport has its own terminal layout, curbside rules, and typical drive
-            times from DC. Pick your airport below for specifics on pickup points and
-            travel times from popular DC neighborhoods.
+            times from DC and Northern Virginia. Pick your airport below for specifics
+            on pickup points and travel times.
           </p>
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
             <AirportCard
               code="DCA"
               name="Reagan National"
               slug="reagan-dca"
-              blurb="Closest airport to Downtown DC — typically a 10–20 minute ride from most central neighborhoods."
+              blurb="Closest airport to Downtown DC and Arlington — typically a 10–20 minute ride from most central neighborhoods."
             />
             <AirportCard
               code="IAD"
               name="Dulles International"
               slug="dulles-iad"
-              blurb="The primary hub for international and many long-haul domestic flights — roughly 45 minutes to an hour from DC depending on traffic."
-            />
-            <AirportCard
-              code="BWI"
-              name="BWI Marshall"
-              slug="bwi"
-              blurb="Serves DC, Baltimore, and Northern Maryland — about 45 minutes to an hour from central DC."
+              blurb="The primary hub for international and many long-haul domestic flights, located in Northern Virginia — roughly 30–60 minutes from DC depending on traffic."
             />
           </div>
         </div>

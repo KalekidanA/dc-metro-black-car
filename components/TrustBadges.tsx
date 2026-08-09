@@ -8,7 +8,7 @@ const ICONS: Record<string, string> = {
 };
 
 const BADGES = [
-  { icon: "license", label: "DFHV-Licensed Operator" },
+  { icon: "license", label: "Licensed in DC & Virginia" },
   { icon: "shield", label: "Commercially Insured" },
   { icon: "check", label: "Background-Checked Driver" },
   { icon: "clock", label: "On-Time, Every Time" },

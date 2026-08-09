@@ -13,21 +13,19 @@ const PATH = "/hourly-as-directed";
 
 export const metadata: Metadata = buildMetadata({
   title: "Hourly Car Service Washington DC — As-Directed & Multi-Stop Charters",
-  description:
-    "Book a black car and driver by the hour in Washington, DC. Ideal for multi-stop meetings, client visits, shopping trips, and flexible point-to-point days.",
+  description: `Book a black car and driver by the hour in Washington, DC and Northern Virginia. $${tenant.fleet.vehicleTypes[0].hourlyRate}/hr sedan, $${tenant.fleet.vehicleTypes[1].hourlyRate}/hr SUV. Ideal for multi-stop meetings, client visits, and flexible point-to-point days.`,
   path: PATH,
 });
 
 const FAQS = [
   {
     question: "How does hourly / as-directed billing work?",
-    answer:
-      "You reserve the vehicle and driver for a block of time — a minimum booking period applies, with additional time billed in set increments. Your driver stays with you and the vehicle for the full reservation.",
+    answer: `You reserve the vehicle and driver for a block of time, billed hourly: $${tenant.fleet.vehicleTypes[0].hourlyRate}/hr for the ${tenant.fleet.vehicleTypes[0].name} (up to ${tenant.fleet.vehicleTypes[0].capacity} passengers) or $${tenant.fleet.vehicleTypes[1].hourlyRate}/hr for the ${tenant.fleet.vehicleTypes[1].name} (up to ${tenant.fleet.vehicleTypes[1].capacity} passengers). A minimum booking period applies. Your driver stays with you and the vehicle for the full reservation.`,
   },
   {
     question: "What's the minimum booking time?",
     answer:
-      "Hourly bookings typically require a minimum reservation window; call us with your planned itinerary and we'll confirm exact minimums and pricing for your date.",
+      "Hourly bookings typically require a minimum reservation window; call us with your planned itinerary and we'll confirm the exact minimum for your date.",
   },
   {
     question: "Can I make stops that weren't planned when I booked?",
@@ -81,6 +79,36 @@ export default function Page() {
             changes in real time, and keeps the same vehicle with you throughout your
             reservation — no re-booking, no waiting for a new driver to arrive.
           </p>
+        </div>
+      </section>
+
+      <section className="bg-black text-ivory">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <h2 className="font-display text-3xl font-semibold sm:text-4xl">
+            Hourly rates
+          </h2>
+          <p className="mt-4 max-w-2xl text-ivory/70">
+            Billed from pickup to drop-off, with a minimum booking period confirmed
+            when you reserve. No surge pricing — the rate you&apos;re quoted is the
+            rate you pay.
+          </p>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+            {tenant.fleet.vehicleTypes.map((vehicle) => (
+              <div key={vehicle.name} className="rounded-sm border border-white/10 bg-charcoal p-8">
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="font-display text-xl font-semibold">{vehicle.name}</h3>
+                  <p className="font-display text-3xl font-semibold text-gold">
+                    ${vehicle.hourlyRate}
+                    <span className="text-sm font-sans font-normal text-ivory/50">/hr</span>
+                  </p>
+                </div>
+                <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-ivory/50">
+                  Up to {vehicle.capacity} passengers
+                </p>
+                <p className="mt-3 text-sm text-ivory/70">{vehicle.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

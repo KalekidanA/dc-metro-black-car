@@ -12,7 +12,7 @@ import { PhoneLink } from "@/components/PhoneLink";
 
 export const metadata: Metadata = buildMetadata({
   title: `${tenant.tagline} | Airport, Corporate & Hourly Car Service`,
-  description: `${tenant.businessName} provides prearranged black car service in Washington, DC — airport transfers to DCA, IAD & BWI, corporate travel, hourly charters, and event transportation. Licensed, insured, background-checked.`,
+  description: `${tenant.businessName} provides prearranged black car service in Washington, DC and Northern Virginia — airport transfers to DCA & IAD, corporate travel, hourly charters, and event transportation. Licensed, insured, background-checked.`,
   path: "/",
 });
 
@@ -21,7 +21,7 @@ const SERVICES = [
     href: "/airport-transfers",
     title: "Airport Transfers",
     description:
-      "Flight-tracked pickups and drop-offs at Reagan National (DCA), Dulles (IAD), and BWI — meet-and-greet service with real-time delay monitoring.",
+      "Flight-tracked pickups and drop-offs at Reagan National (DCA) and Dulles (IAD) — meet-and-greet service with real-time delay monitoring.",
   },
   {
     href: "/corporate-executive-travel",
@@ -47,17 +47,21 @@ const HOME_FAQS = [
   {
     question: "Is this a taxi or rideshare app?",
     answer:
-      "No. Capitol Black Car Service is a prearranged, licensed black car service — every ride is scheduled in advance by phone or through our contact form, not hailed on the street or dispatched through an on-demand app. This is the DC DFHV-regulated black car / limousine model, built for reliability and professionalism.",
+      "No. Capitol Black Car Service is a prearranged, licensed black car service — every ride is scheduled in advance by phone or through our contact form, not hailed on the street or dispatched through an on-demand app. This is a licensed black car / limousine model, built for reliability and professionalism.",
   },
   {
     question: "What areas do you serve?",
     answer:
-      "We're based in Washington, DC and serve the entire District plus nearby Northern Virginia and suburban Maryland, including Arlington, Alexandria, Bethesda, and Silver Spring. See our full service area page for a neighborhood-by-neighborhood breakdown.",
+      "We're based in Washington, DC and serve the entire District plus nearby Northern Virginia, including Arlington, Alexandria, Tysons, and McLean. We're licensed for DC and Virginia only — Maryland is not currently served. See our full service area page for a neighborhood-by-neighborhood breakdown.",
   },
   {
     question: "Which airports do you cover?",
     answer:
-      "All three DC-area airports: Reagan National (DCA), Dulles International (IAD), and BWI Marshall. We track your flight and adjust pickup timing automatically for delays.",
+      "Reagan National (DCA) and Dulles International (IAD). We track your flight and adjust pickup timing automatically for delays.",
+  },
+  {
+    question: "How much does it cost?",
+    answer: `We bill hourly: $${tenant.fleet.vehicleTypes[0].hourlyRate}/hr for our ${tenant.fleet.vehicleTypes[0].name} (up to ${tenant.fleet.vehicleTypes[0].capacity} passengers) and $${tenant.fleet.vehicleTypes[1].hourlyRate}/hr for our ${tenant.fleet.vehicleTypes[1].name} (up to ${tenant.fleet.vehicleTypes[1].capacity} passengers). Call for a quote on your specific trip.`,
   },
   {
     question: "How do I book?",
@@ -75,7 +79,7 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-2 lg:items-center lg:px-8 lg:py-28">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
-              Washington, DC &middot; DCA &middot; IAD &middot; BWI
+              Washington, DC &middot; Northern Virginia &middot; DCA &middot; IAD
             </p>
             <h1 className="font-display mt-4 text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
               {tenant.tagline}
@@ -83,7 +87,7 @@ export default function HomePage() {
             <p className="mt-6 max-w-xl text-lg text-ivory/75">
               Prearranged, professional transportation for airport transfers, corporate
               travel, and special occasions — licensed, insured, and driven by a
-              background-checked DC operator who knows this city.
+              background-checked DC &amp; Virginia operator who knows this region.
             </p>
             <CallToAction className="mt-8" />
             <p className="mt-6 text-xs uppercase tracking-wide text-ivory/50">
@@ -139,6 +143,45 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Pricing */}
+      <section className="bg-black text-ivory">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
+              Pricing
+            </p>
+            <h2 className="font-display mt-3 text-3xl font-semibold sm:text-4xl">
+              Simple, transparent hourly rates
+            </h2>
+            <p className="mt-4 text-ivory/70">
+              No surge pricing, no hidden fees — just a flat hourly rate by vehicle
+              type. Call for a quote on your specific trip.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+            {tenant.fleet.vehicleTypes.map((vehicle) => (
+              <div
+                key={vehicle.name}
+                className="rounded-sm border border-white/10 bg-charcoal p-8"
+              >
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="font-display text-xl font-semibold">{vehicle.name}</h3>
+                  <p className="font-display text-3xl font-semibold text-gold">
+                    ${vehicle.hourlyRate}
+                    <span className="text-sm font-sans font-normal text-ivory/50">/hr</span>
+                  </p>
+                </div>
+                <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-ivory/50">
+                  Up to {vehicle.capacity} passengers
+                </p>
+                <p className="mt-3 text-sm text-ivory/70">{vehicle.description}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-xs text-ivory/40">{tenant.legal.disclaimer}</p>
+        </div>
+      </section>
+
       {/* Service area */}
       <section className="bg-charcoal text-ivory">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8">
@@ -147,7 +190,7 @@ export default function HomePage() {
               Service Area
             </p>
             <h2 className="font-display mt-3 text-3xl font-semibold sm:text-4xl">
-              Covering all of DC, plus Northern Virginia &amp; suburban Maryland
+              Covering Washington, DC &amp; Northern Virginia
             </h2>
             <p className="mt-4 text-ivory/70">{tenant.serviceArea.summary}</p>
             <Link
@@ -187,7 +230,7 @@ export default function HomePage() {
               Who You&apos;re Riding With
             </p>
             <h2 className="font-display mt-3 text-3xl font-semibold sm:text-4xl">
-              A licensed DC operator, not a rotating cast of app drivers
+              A licensed DC &amp; Virginia operator, not a rotating cast of app drivers
             </h2>
             <p className="mt-4 text-black/70">{tenant.operator.bio}</p>
             <ul className="mt-6 space-y-2 text-sm text-black/70">

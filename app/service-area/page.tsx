@@ -10,9 +10,9 @@ import { CallToAction } from "@/components/CallToAction";
 const PATH = "/service-area";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Service Area — Black Car Service Across Washington, DC & Suburbs",
+  title: "Service Area — Black Car Service Across Washington, DC & Northern Virginia",
   description:
-    "Capitol Black Car Service covers all of Washington, DC plus Northern Virginia and suburban Maryland — Georgetown, Capitol Hill, Arlington, Alexandria, Bethesda, and more.",
+    "Capitol Black Car Service covers all of Washington, DC plus Northern Virginia — Georgetown, Capitol Hill, Arlington, Alexandria, Tysons, McLean, and more. Licensed for DC and Virginia only.",
   path: PATH,
 });
 
@@ -100,21 +100,6 @@ const EXTENDED_AREAS = [
     detail:
       "An affluent Northern Virginia community with easy access to both Dulles and Downtown DC.",
   },
-  {
-    name: "Bethesda, MD",
-    detail:
-      "Home to NIH, a dense corporate and medical office corridor, and a strong restaurant scene just over the DC line.",
-  },
-  {
-    name: "Silver Spring, MD",
-    detail:
-      "A growing Montgomery County hub with direct Metro access into DC, frequently paired with BWI transfers.",
-  },
-  {
-    name: "National Harbor, MD",
-    detail:
-      "The Gaylord National Resort & Convention Center and MGM National Harbor draw heavy conference and event travel from across the region.",
-  },
 ];
 
 export default function Page() {
@@ -130,7 +115,7 @@ export default function Page() {
 
       <PageHero
         eyebrow="Where We Drive"
-        title="Serving All of Washington, DC — Plus Northern Virginia &amp; Maryland"
+        title="Serving All of Washington, DC &amp; Northern Virginia"
         description={tenant.serviceArea.summary}
       />
 
@@ -158,11 +143,12 @@ export default function Page() {
       <section className="bg-charcoal text-ivory">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <h2 className="font-display text-3xl font-semibold sm:text-4xl">
-            Northern Virginia &amp; suburban Maryland
+            Northern Virginia
           </h2>
           <p className="mt-4 max-w-2xl text-ivory/70">
-            Our service extends beyond the District to the surrounding communities
-            where many clients live and work.
+            Our service extends beyond the District into Northern Virginia, where many
+            clients live and work. We&apos;re licensed to operate in DC and Virginia
+            only — Maryland pickups and drop-offs are not currently available.
           </p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {EXTENDED_AREAS.map((area) => (
@@ -181,8 +167,8 @@ export default function Page() {
             Airport coverage
           </h2>
           <p className="mt-4 text-black/70">
-            All three DC-area airports are covered as part of our standard service
-            area — see our{" "}
+            Both DC-area airports are covered as part of our standard service area —
+            see our{" "}
             <Link href="/airport-transfers" className="text-gold hover:underline">
               airport transfers page
             </Link>{" "}

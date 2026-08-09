@@ -8,7 +8,6 @@ const STATIC_PATHS = [
   { path: "/airport-transfers", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "/airport-transfers/reagan-dca", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "/airport-transfers/dulles-iad", priority: 0.9, changeFrequency: "weekly" as const },
-  { path: "/airport-transfers/bwi", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "/corporate-executive-travel", priority: 0.8, changeFrequency: "monthly" as const },
   { path: "/hourly-as-directed", priority: 0.7, changeFrequency: "monthly" as const },
   { path: "/event-transportation", priority: 0.6, changeFrequency: "monthly" as const },

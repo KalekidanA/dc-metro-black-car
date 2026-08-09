@@ -11,7 +11,7 @@ const PATH = "/faq";
 
 export const metadata: Metadata = buildMetadata({
   title: "Frequently Asked Questions",
-  description: `Pricing, service area, licensing, and booking policies for ${tenant.businessName}, a prearranged black car service in Washington, DC.`,
+  description: `Pricing, service area, licensing, and booking policies for ${tenant.businessName}, a prearranged black car service in Washington, DC and Northern Virginia.`,
   path: PATH,
 });
 
@@ -21,8 +21,7 @@ const FAQ_GROUPS: { heading: string; items: FAQItem[] }[] = [
     items: [
       {
         question: "How is pricing structured?",
-        answer:
-          "Airport transfers and point-to-point trips are typically quoted as a flat rate based on pickup and drop-off locations. Hourly / as-directed bookings are billed by the hour with a minimum booking period. Call or request a reservation for a specific quote — we confirm pricing before your trip, not after.",
+        answer: `We bill hourly by vehicle type: $${tenant.fleet.vehicleTypes[0].hourlyRate}/hr for our ${tenant.fleet.vehicleTypes[0].name} (up to ${tenant.fleet.vehicleTypes[0].capacity} passengers), and $${tenant.fleet.vehicleTypes[1].hourlyRate}/hr for our ${tenant.fleet.vehicleTypes[1].name} (up to ${tenant.fleet.vehicleTypes[1].capacity} passengers). A minimum booking period applies. Call or request a reservation for a specific quote — we confirm pricing before your trip, not after.`,
       },
       {
         question: "Do prices change based on demand or time of day?",
@@ -52,12 +51,12 @@ const FAQ_GROUPS: { heading: string; items: FAQItem[] }[] = [
       {
         question: "What areas do you serve?",
         answer:
-          "All of Washington, DC, plus nearby Northern Virginia (Arlington, Alexandria, Tysons, McLean) and suburban Maryland (Bethesda, Silver Spring, National Harbor). See our full service area page for neighborhood-level detail.",
+          "All of Washington, DC, plus nearby Northern Virginia (Arlington, Alexandria, Tysons, McLean). We're licensed for DC and Virginia only — Maryland is not currently served. See our full service area page for neighborhood-level detail.",
       },
       {
         question: "Which airports do you serve?",
         answer:
-          "Reagan National (DCA), Dulles International (IAD), and BWI Marshall — all three DC-area airports, with flight tracking included on every airport booking.",
+          "Reagan National (DCA) and Dulles International (IAD), with flight tracking included on every airport booking.",
       },
       {
         question: "Are you available 24/7?",
@@ -80,7 +79,7 @@ const FAQ_GROUPS: { heading: string; items: FAQItem[] }[] = [
       {
         question: "Is the driver background-checked?",
         answer:
-          "Yes. Every driver operating under Capitol Black Car Service is background-checked and licensed by the DC Department of For-Hire Vehicles (DFHV) as a black car / luxury sedan operator.",
+          "Yes. Every driver operating under Capitol Black Car Service is background-checked and licensed as a black car / luxury sedan operator in both DC and Virginia.",
       },
     ],
   },

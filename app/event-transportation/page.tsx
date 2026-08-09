@@ -38,7 +38,7 @@ const FAQS = [
   {
     question: "Do you serve venues outside DC proper?",
     answer:
-      "Yes, we cover event venues throughout DC as well as nearby Northern Virginia and Maryland — see our service area page for the full coverage list.",
+      "Yes, we cover event venues throughout DC as well as nearby Northern Virginia — see our service area page for the full coverage list. We're licensed for DC and Virginia only; Maryland venues aren't currently available.",
   },
 ];
 

@@ -14,7 +14,7 @@ const data: AirportDetailData = {
   heroDescription:
     "Dulles handles most of the region's international and long-haul flights — and sits far enough from the city that a dependable, prearranged pickup matters more here than anywhere else in the DC market.",
   intro: [
-    "IAD is roughly 25 miles west of Downtown DC, out past the Dulles Toll Road, which makes it the longest and most traffic-sensitive of the three area airports. For international arrivals in particular, customs and baggage claim timing is unpredictable — your flight is tracked from wheels-down, not from a fixed clock time, so a long customs line never turns into a missed pickup.",
+    "IAD is roughly 25 miles west of Downtown DC, out past the Dulles Toll Road, which makes it the longest and most traffic-sensitive of the two area airports we serve. For international arrivals in particular, customs and baggage claim timing is unpredictable — your flight is tracked from wheels-down, not from a fixed clock time, so a long customs line never turns into a missed pickup.",
     "We also handle a steady volume of early-morning Dulles departures for business travelers catching 6 a.m. transatlantic flights, which means being ready well before dawn and knowing which departure curb to use for each terminal.",
   ],
   terminalNotes: [
